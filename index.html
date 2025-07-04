@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Girlfriend Grievance Portal 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .portal-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .input, .textarea, .select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .input:focus, .textarea:focus, .select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        .emoji-option {
+            font-size: 1.2em;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.3);
+            animation: float 6s ease-in-out infinite;
+            font-size: 2em;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .result-page {
+            display: none;
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        .result-page.active {
+            display: block;
+        }
+        
+        .form-page.hidden {
+            display: none;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-header {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .result-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .result-message {
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .result-details {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .detail-item {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .detail-value {
+            color: #666;
+            margin-left: 10px;
+        }
+        
+        .back-btn {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            margin-right: 15px;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .processing-animation {
+            font-size: 2em;
+            margin: 20px 0;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts">
+        <div class="heart" style="left: 10%; animation-delay: 0s;">💕</div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;">💖</div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;">💗</div>
+        <div class="heart" style="left: 40%; animation-delay: 3s;">💝</div>
+        <div class="heart" style="left: 50%; animation-delay: 4s;">💕</div>
+        <div class="heart" style="left: 60%; animation-delay: 5s;">💖</div>
+        <div class="heart" style="left: 70%; animation-delay: 6s;">💗</div>
+        <div class="heart" style="left: 80%; animation-delay: 7s;">💝</div>
+        <div class="heart" style="left: 90%; animation-delay: 8s;">💕</div>
+    </div>
+
+    <div class="portal-container">
+        <!-- Form Page -->
+        <div id="formPage" class="form-page">
+            <div class="header">
+                <h1 class="title">Official Grievance Portal</h1>
+                <p class="subtitle">For the most important person in my life 💕</p>
+            </div>
+            
+            <form id="grievanceForm">
+                <div class="form-group">
+                    <label class="label" for="grievanceTitle">📝 What's the issue, gorgeous?</label>
+                    <input type="text" id="grievanceTitle" class="input" placeholder="e.g., Left dishes in sink AGAIN..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="label" for="grievanceDetails">📋 Tell me all about it (don't hold back!)</label>
+                    <textarea id="grievanceDetails" class="textarea" placeholder="Spill the tea... I'm listening 👀" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="label" for="currentMood">😊 Current Mood Level</label>
+                    <select id="currentMood" class="select" required>
+                        <option value="">Select your vibe...</option>
+                        <option value="😤" class="emoji-option">😤 Ennod mindanda</option>
+                        <option value="😒" class="emoji-option">😒 Okay annu(ultimate pucham)</option>
+                        <option value="🙄" class="emoji-option">🙄 ehhhhh</option>
+                        <option value="😠" class="emoji-option">😠 Muralikrishnaaaa</option>
+                        <option value="🤬" class="emoji-option">🤬 Njan vechatt povum</option>
+                        <option value="😢" class="emoji-option">😢 Vishamaayi</option>
+                        <option value="😭" class="emoji-option">😭 Arum mind cheyyanilla</option>
+                        <option value="🤨" class="emoji-option">🤨 Enth thenga venelum kaanikk</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="label" for="desiredSolution">💡 Preferred Resolution</label>
+                    <select id="desiredSolution" class="select" required>
+                        <option value="">What would make this better?</option>
+                        <option value="sincere_apology">Onnu vilichal mathi</option>
+                        <option value="flowers">Kettirunnal mathi. Upadeshikkana</option>
+                        <option value="favorite_food">Njan kuttam parayana aale neeyum kuttam parayanam</option>
+                        <option value="movie_night">Gift vedichu thannal mathi</option>
+                        <option value="shopping_trip">Video call cheythal mathi</option>
+                        <option value="date_night">Korachu nerathekk enne vilikkanda</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn" onclick="saveData();">Submit Official Complaint 📨</button>
+            </form>
+        </div>
+
+        <!-- Results Page -->
+        <div id="resultPage" class="result-page">
+            <div class="result-header">📬</div>
+            <h2 class="result-title">Grievance Successfully Filed!</h2>
+            
+            <div class="processing-animation">⚡ Processing... ⚡</div>
+            
+            <div class="result-message" id="resultMessage">
+                <!-- Dynamic message will be inserted here -->
+            </div>
+            
+            <div class="result-details">
+                <div class="detail-item">
+                    <span class="detail-label">📋 Issue:</span>
+                    <span class="detail-value" id="displayTitle"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">😊 Current Mood:</span>
+                    <span class="detail-value" id="displayMood"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">💡 Requested Solution:</span>
+                    <span class="detail-value" id="displaySolution"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">📅 Filed:</span>
+                    <span class="detail-value" id="displayDate"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">🆔 Case Number:</span>
+                    <span class="detail-value" id="displayCase"></span>
+                </div>
+            </div>
+            
+            <button class="back-btn" onclick="goBack() ">File Another Complaint 📝</button>
+            <button class="back-btn" onclick="location.reload()">Close Portal 🚪</button>
+        </div>
+    </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+    <script>
+        document.getElementById('grievanceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('grievanceTitle').value;
+            const details = document.getElementById('grievanceDetails').value;
+            const mood = document.getElementById('currentMood').value;
+            const solution = document.getElementById('desiredSolution').value;
+            
+            // Get solution text for display
+            const solutionText = document.getElementById('desiredSolution').selectedOptions[0].text;
+            const moodText = document.getElementById('currentMood').selectedOptions[0].text;
+            
+            const responses = {
+                'sincere_apology': "Avan enthayalum vilikkkumttaaa. 🥺",
+                'flowers': "Avan kettirunnolum. Upadeshikkan thodangyal onnu ormipichal mathi.  🌹💸",
+                'favorite_food': "Avanu pande avare ishttolla 🍕❤️",
+                'movie_night': "Enthayalum vangichu thannirikkum(Vishwasikk) 🎬🍿",
+                'shopping_trip': "Veettil ninnu porathu erangeettu cheyyum sure 🛍️💳",
+                'date_night': "Illa vilikkanilla. Nee happy aayitt irikkumbo vilikkuuuu 🥂✨"
+                
+            };
+            
+            const resultText = responses[solution] || "Your grievance has been filed with the Department of Boyfriend Accountability. Justice will be served! ⚖️💕";
+            
+            // Generate case number
+            const caseNumber = 'GF-' + Date.now().toString().slice(-6);
+            
+            // Fill in result page data
+            document.getElementById('resultMessage').textContent = resultText;
+            document.getElementById('displayTitle').textContent = title;
+            document.getElementById('displayMood').textContent = moodText;
+            document.getElementById('displaySolution').textContent = solutionText;
+            document.getElementById('displayDate').textContent = new Date().toLocaleString();
+            document.getElementById('displayCase').textContent = caseNumber;
+            
+            // Hide form page and show result page
+            document.getElementById('formPage').classList.add('hidden');
+            document.getElementById('resultPage').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+        
+        function goBack() {
+            // Reset form
+            document.getElementById('grievanceForm').reset();
+            
+            // Show form page and hide result page
+            document.getElementById('formPage').classList.remove('hidden');
+            document.getElementById('resultPage').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Add some interactive fun
+        const hearts = document.querySelectorAll('.heart');
+        hearts.forEach(heart => {
+            heart.style.animationDelay = Math.random() * 10 + 's';
+            heart.style.left = Math.random() * 100 + '%';
+        });
+
+        // Import the functions you need from the SDKs you need
+
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJqrsPqT-uqyc5gXUf8MVG5pw_rPigW0o",
+    authDomain: "gfcomplaintbox.firebaseapp.com",
+    projectId: "gfcomplaintbox",
+    storageBucket: "gfcomplaintbox.firebasestorage.app",
+    messagingSenderId: "69060395700",
+    appId: "1:69060395700:web:dea2b332e5d99a50bd0de1",
+    measurementId: "G-JGFGHX54PE"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  // Save data to Firebase Realtime Database
+  function saveData() {
+    const data = {
+      name: "MK",
+      message: "Hello Firebase"
+    };
+
+    // Save under "complaints" node
+    database.ref('gfcomplaintbox').push(data)
+      .then(() => alert("Saved successfully"))
+      .catch((error) => console.error("Error:", error));
+  }
+    </script>
+</body>
+</html>
