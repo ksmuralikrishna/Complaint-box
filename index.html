@@ -333,7 +333,7 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="submit-btn" onclick="saveData();">Submit Official Complaint 📨</button>
+                <button type="submit" class="submit-btn">Submit Official Complaint 📨</button>
             </form>
         </div>
 
@@ -375,72 +375,100 @@
             <button class="back-btn" onclick="location.reload()">Close Portal 🚪</button>
         </div>
     </div>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-    <script>
-        document.getElementById('grievanceForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const title = document.getElementById('grievanceTitle').value;
-            const details = document.getElementById('grievanceDetails').value;
-            const mood = document.getElementById('currentMood').value;
-            const solution = document.getElementById('desiredSolution').value;
-            
-            // Get solution text for display
-            const solutionText = document.getElementById('desiredSolution').selectedOptions[0].text;
-            const moodText = document.getElementById('currentMood').selectedOptions[0].text;
-            
-            const responses = {
-                'sincere_apology': "Avan enthayalum vilikkkumttaaa. 🥺",
-                'flowers': "Avan kettirunnolum. Upadeshikkan thodangyal onnu ormipichal mathi.  🌹💸",
-                'favorite_food': "Avanu pande avare ishttolla 🍕❤️",
-                'movie_night': "Enthayalum vangichu thannirikkum(Vishwasikk) 🎬🍿",
-                'shopping_trip': "Veettil ninnu porathu erangeettu cheyyum sure 🛍️💳",
-                'date_night': "Illa vilikkanilla. Nee happy aayitt irikkumbo vilikkuuuu 🥂✨"
-                
-            };
-            
-            const resultText = responses[solution] || "Your grievance has been filed with the Department of Boyfriend Accountability. Justice will be served! ⚖️💕";
-            
-            // Generate case number
-            const caseNumber = 'GF-' + Date.now().toString().slice(-6);
-            
-            // Fill in result page data
-            document.getElementById('resultMessage').textContent = resultText;
-            document.getElementById('displayTitle').textContent = title;
-            document.getElementById('displayMood').textContent = moodText;
-            document.getElementById('displaySolution').textContent = solutionText;
-            document.getElementById('displayDate').textContent = new Date().toLocaleString();
-            document.getElementById('displayCase').textContent = caseNumber;
-            
-            // Hide form page and show result page
-            document.getElementById('formPage').classList.add('hidden');
-            document.getElementById('resultPage').classList.add('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        });
-        
-        function goBack() {
-            // Reset form
-            document.getElementById('grievanceForm').reset();
-            
-            // Show form page and hide result page
-            document.getElementById('formPage').classList.remove('hidden');
-            document.getElementById('resultPage').classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-        
-        // Add some interactive fun
-        const hearts = document.querySelectorAll('.heart');
-        hearts.forEach(heart => {
-            heart.style.animationDelay = Math.random() * 10 + 's';
-            heart.style.left = Math.random() * 100 + '%';
+    <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyAspMAMC-z-82F9V7EBN-wiy87mSlyGeLI",
+        authDomain: "complain-box-282e1.firebaseapp.com",
+        projectId: "complain-box-282e1",
+        storageBucket: "complain-box-282e1.appspot.com",
+        messagingSenderId: "891659088096",
+        appId: "1:891659088096:web:28d387dba11414c5e5e085"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app); // ✅ Correct modular usage
+
+    // Handle form submission
+    document.getElementById('grievanceForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const title = document.getElementById('grievanceTitle').value;
+        const details = document.getElementById('grievanceDetails').value;
+        const mood = document.getElementById('currentMood').value;
+        const solution = document.getElementById('desiredSolution').value;
+
+        // Save data to Firebase Realtime Database
+        push(ref(database, "messages"), {
+        complaintTitle: title,
+        complaintDetails: details,
+        complaintMood: mood,
+        complaintSolution: solution
+        })
+        .then(() => {
+        alert("Data saved successfully!");
+        })
+        .catch((error) => {
+        alert("Error: " + error.message);
         });
 
+        // Get display text for selected mood and solution
+        const solutionText = document.getElementById('desiredSolution').selectedOptions[0].text;
+        const moodText = document.getElementById('currentMood').selectedOptions[0].text;
+
+        // Responses mapping
+        const responses = {
+        'sincere_apology': "Avan enthayalum vilikkkumttaaa. 🥺",
+        'flowers': "Avan kettirunnolum. Upadeshikkan thodangyal onnu ormipichal mathi. 🌹💸",
+        'favorite_food': "Avanu pande avare ishttolla 🍕❤️",
+        'movie_night': "Enthayalum vangichu thannirikkum(Vishwasikk) 🎬🍿",
+        'shopping_trip': "Veettil ninnu porathu erangeettu cheyyum sure 🛍️💳",
+        'date_night': "Illa vilikkanilla. Nee happy aayitt irikkumbo vilikkuuuu 🥂✨"
+        };
+
+        // Set result text based on selected solution
+        const resultText = responses[solution] || "Your grievance has been filed with the Department of Boyfriend Accountability. Justice will be served! ⚖️💕";
+
+        // Generate case number
+        const caseNumber = 'GF-' + Date.now().toString().slice(-6);
+
+        // Display results
+        document.getElementById('resultMessage').textContent = resultText;
+        document.getElementById('displayTitle').textContent = title;
+        document.getElementById('displayMood').textContent = moodText;
+        document.getElementById('displaySolution').textContent = solutionText;
+        document.getElementById('displayDate').textContent = new Date().toLocaleString();
+        document.getElementById('displayCase').textContent = caseNumber;
+
+        // Show result page, hide form
+        document.getElementById('formPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.add('active');
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+    });
+
+    // Function to go back to form
+    function goBack() {
+        document.getElementById('grievanceForm').reset();
+        document.getElementById('formPage').classList.remove('hidden');
+        document.getElementById('resultPage').classList.remove('active');
+        window.scrollTo(0, 0);
+    }
+
+    // Animate hearts (optional fun)
+    const hearts = document.querySelectorAll('.heart');
+    hearts.forEach(heart => {
+        heart.style.animationDelay = Math.random() * 10 + 's';
+        heart.style.left = Math.random() * 100 + '%';
+    });
     </script>
-    <scrip src="firebase.js"></scrip>
+
 </body>
 </html>
