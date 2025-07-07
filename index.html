@@ -409,13 +409,14 @@
         complaintTitle: title,
         complaintDetails: details,
         complaintMood: mood,
-        complaintSolution: solution
+        complaintSolution: solution,
+        complaintFiled:new Date().toLocaleString()
         })
         .then(() => {
-        
+         
         })
         .catch((error) => {
-        console.log("Error: " + error.message);
+        alert("Error: " + error.message);
         });
 
         // Get display text for selected mood and solution
