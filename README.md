@@ -49,12 +49,6 @@ This project is open-source and available under the MIT License.
 
 ---
 
-Let me know your actual:
-- GitHub username
-- Netlify live URL
-- Screenshot URL (if available)
-
-I'll fill them in for you.
 
 ## 📦 Setup Instructions
 
