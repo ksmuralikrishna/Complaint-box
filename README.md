@@ -31,5 +31,17 @@ A simple web application to collect user complaints from your loved ones, built 
 
 ---
 
-## 🗂️ Project Structure
+## 📦 Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/complaint-box.git
+   cd complaint-box
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+  ...
+};
 
