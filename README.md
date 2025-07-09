@@ -31,6 +31,31 @@ A simple web application to collect user complaints from your loved ones, built 
 
 ---
 
+📦 Deployment
+This project is deployed using Netlify.
+Just drag & drop or connect GitHub for auto-deploys.
+
+🤝 Contributing
+Pull requests are welcome! Feel free to open an issue or suggest features.
+
+⭐ Support
+If you like this project, please give it a star 🌟
+It helps boost visibility and encourages continued development.
+
+
+
+📄 License
+This project is open-source and available under the MIT License.
+
+---
+
+Let me know your actual:
+- GitHub username
+- Netlify live URL
+- Screenshot URL (if available)
+
+I'll fill them in for you.
+
 ## 📦 Setup Instructions
 
 1. Clone the repository:
@@ -38,10 +63,4 @@ A simple web application to collect user complaints from your loved ones, built 
    git clone https://github.com/yourusername/complaint-box.git
    cd complaint-box
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  ...
-};
 
