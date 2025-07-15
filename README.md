@@ -1,6 +1,6 @@
 # 📨 Complaint Box
 
-A simple web application to collect user complaints from your loved ones, built using **HTML**, **JavaScript**, and **Firebase Realtime Database**. This lightweight project stores submitted complaints in the cloud and is deployed using **Netlify**.
+A simple web application to collect user complaints from your loved ones, built using **HTML**, **JavaScript**, and **Firebase Realtime Database**. This lightweight project stores submitted complaints in the cloud and is deployed using **Netlify**.    
 
 ---
 
